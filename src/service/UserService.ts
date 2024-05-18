@@ -68,7 +68,7 @@ async function createUserService(data: UserModel): Promise<HttpResponse> {
 
     const hashPassword = await hash(data.password)
 
-    const user = await ClientPrisma.user.create({
+    await ClientPrisma.user.create({
         data: {
             name: data.name,
             email: data.email,
@@ -83,7 +83,6 @@ async function createUserService(data: UserModel): Promise<HttpResponse> {
         }
     }
 }
-
 
 function validUpdateUser(name: string) {
     if (!name) {
@@ -144,4 +143,56 @@ async function updateUserService(name: string, id: string): Promise<HttpResponse
     }
 }
 
-export { createUserService, updateUserService };
+async function deleteUserService(id:string) {
+    const userExists = await ClientPrisma.user.findUnique({
+        where: {
+            id: id
+        }
+    })
+
+    if (!userExists) {
+        return {
+            statusCode: 400,
+            body: {
+                message: 'User not found'
+            }
+        }
+    }
+
+    await ClientPrisma.user.delete({
+        where: {
+            id: id
+        }
+    })
+
+    return {
+        statusCode: 200,
+        body: {
+            message: 'User deleted successfully'
+        }
+    }
+}
+
+async function getUserService(id:string) {
+    const userExists = await ClientPrisma.user.findUnique({
+        where: {
+            id: id
+        }
+    })
+
+    if (!userExists) {
+        return {
+            statusCode: 400,
+            body: {
+                message: 'User not found'
+            }
+        }
+    }
+
+    return {
+        statusCode: 200,
+        body: userExists
+    }
+}
+
+export { createUserService, updateUserService, deleteUserService, getUserService };
