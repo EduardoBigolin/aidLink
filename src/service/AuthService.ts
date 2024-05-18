@@ -14,7 +14,7 @@ async function authService(auth: AuthModel): Promise<HttpResponse> {
         return {
             statusCode: 404,
             body: {
-                message: 'User not found'
+                message: 'Usuário não encontrado'
             }
         }
     }
@@ -24,7 +24,7 @@ async function authService(auth: AuthModel): Promise<HttpResponse> {
         return {
             statusCode: 401,
             body: {
-                message: 'Invalid password'
+                message: 'Senha inválida'
             }
         }
     }
