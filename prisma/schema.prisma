@@ -32,6 +32,21 @@ model User {
   role     Role    @default(USER)
 }
 
+model Incident {
+  id          String   @id @default(cuid())
+  name        String
+  address     String
+  city        String
+  state       String
+  zip         Int
+  description String
+  lat         Int
+  long        Int
+  image       String? 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
+
 enum Role {
   USER
   ADMIN
