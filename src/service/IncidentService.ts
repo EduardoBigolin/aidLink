@@ -68,7 +68,7 @@ export async function createIncidentService(
   return {
     statusCode: 201,
     body: {
-      message: 'Incident created successfully'
+      message: 'Incidente criado com sucesso'
     }
   }
 
