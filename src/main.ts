@@ -1,12 +1,15 @@
 import Express from 'express'
+import router from './routes/route'
 
 const app = Express()
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello World !' })
-})
+app.use(Express.json())
+app.use(Express.urlencoded({ extended: true }))
+app.use(Express.static('public'))
+app.use(router)
 
 const PORT = process.env.PORT || 3000
+
 app.listen(PORT, () => {
   console.log('Server running on port 3000')
 })
