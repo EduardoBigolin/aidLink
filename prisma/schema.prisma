@@ -25,11 +25,12 @@ model Shelter {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  email    String  @unique
+  id       String     @id @default(cuid())
+  email    String     @unique
   name     String?
   password String
-  role     Role    @default(USER)
+  role     Role       @default(USER)
+  Incident Incident[]
 }
 
 model Incident {
@@ -42,7 +43,9 @@ model Incident {
   description String
   lat         Int
   long        Int
-  image       String? 
+  image       String?
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
 }

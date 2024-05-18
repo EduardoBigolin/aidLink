@@ -29,15 +29,15 @@ const validIncident = (data: IncidentModel) => {
     return "Longitude is required";
   }
 
-  if (data.zip.toString().length === 8) {
-    return "Zip must have 5 characters";
-  }
+  // if (data.zip.toString().length === 8) {
+  //   return "Zip must have 5 characters";
+  // }
 
   return null;
 };
 
 export async function createIncidentService(
-  data: IncidentModel
+  data: IncidentModel, user_id:string
 ): Promise<HttpResponse> {
   const isValid = validIncident(data);
 
@@ -61,7 +61,8 @@ export async function createIncidentService(
       description: data.description,
       lat: data.lat,
       long: data.long,
-      image: data.image
+      image: data.image,
+      user_id
     },
   });
 
@@ -71,6 +72,5 @@ export async function createIncidentService(
       message: 'Incident created successfully'
     }
   }
-
-
 }
+

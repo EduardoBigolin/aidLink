@@ -7,10 +7,11 @@ export class IncidentModel {
     description: string;
     lat: number;
     long: number;
-    image: string
+    image: string;
+    user_id: string
     
   
-    constructor(name: string, address: string, city: string, state: string, zip: number, description: string, lat: number, long: number, image:string) {
+    constructor(name: string, address: string, city: string, state: string, zip: number, description: string, lat: number, long: number, image:string, user_id: string) {
       this.name = name;
       this.address = address;
       this.city = city;
@@ -20,5 +21,6 @@ export class IncidentModel {
       this.lat = lat;
       this.long = long;
       this.image = image;
+      this.user_id = user_id;
     }
 }

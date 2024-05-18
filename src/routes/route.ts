@@ -3,7 +3,7 @@ import { authController } from "../controller/Auth";
 import { createUser, deleteUser, getUser, updateUser } from "../controller/User";
 import { auth } from "../middleware/auth";
 import { createShelter } from "../controller/Shelter";
-import { createIncident } from "../controller/Incident";
+import { createIncident, getIncident } from "../controller/Incident";
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -23,10 +23,10 @@ router.post("/shelter",auth, createShelter);
 // router.get("/shelter", auth, getrShelter);
 
 // Incidents
-router.post("/incident", createIncident);
+router.post("/incident", auth, createIncident);
 // router.put("/incident", auth, updateIncidents);
 // router.delete("/incident", auth, deleteIncidents);
-// router.get("/incident", auth, getIncidents);
+router.get("/incident", auth, getIncident);
 
 // Auth
 router.post("/login", authController);
