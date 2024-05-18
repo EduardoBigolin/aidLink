@@ -34,7 +34,7 @@ function validCreateUser(data: UserModel) {
     if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(data.email)) {
         return 'Invalid email'
     }
-    
+
     return null
 }
 
@@ -78,10 +78,70 @@ async function createUserService(data: UserModel): Promise<HttpResponse> {
 
     return {
         statusCode: 201,
-        body: user
+        body: {
+            message: 'User created successfully'
+        }
     }
 }
 
 
+function validUpdateUser(name: string) {
+    if (!name) {
+        return 'Name is required'
+    }
+    if (name.length < 3) {
+        return 'Name must be at least 3 characters'
+    }
+    if (name.length > 255) {
+        return 'Name must be less than 255 characters'
+    }
 
-export { createUserService }
+    return null
+}
+
+async function updateUserService(name: string, id: string): Promise<HttpResponse> {
+
+    const isValid = validUpdateUser(name);
+
+    if (isValid) {
+        return {
+            statusCode: 400,
+            body: {
+                message: isValid
+            }
+        }
+    }
+
+    const userExists = await ClientPrisma.user.findUnique({
+        where: {
+            id: id
+        }
+    })
+
+    if (!userExists) {
+        return {
+            statusCode: 400,
+            body: {
+                message: 'User not found'
+            }
+        }
+    }
+
+    const user = await ClientPrisma.user.update({
+        where: {
+            id: id
+        },
+        data: {
+            name,
+        }
+    })
+
+    return {
+        statusCode: 200,
+        body: {
+            message: 'User updated successfully'
+        }
+    }
+}
+
+export { createUserService, updateUserService };

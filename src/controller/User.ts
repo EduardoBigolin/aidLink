@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../model/User';
-import { createUserService } from '../service/UserService';
+import { createUserService, updateUserService } from '../service/UserService';
 
 async function createUser(req: Request, res: Response) {
     
@@ -12,4 +12,13 @@ async function createUser(req: Request, res: Response) {
     res.status(resutlt.statusCode).json(resutlt.body)
 }
 
-export { createUser };
+
+async function updateUser(req: Request, res: Response) {
+    const { id } = req.params
+    const { name} = req.body
+    const resutlt = await updateUserService(name, id)
+
+    res.status(resutlt.statusCode).json(resutlt.body)
+}
+
+export { createUser, updateUser };
