@@ -14,13 +14,13 @@ import { decode } from '../utils/jwt';
 function auth(req: Request, res: Response, next: NextFunction) {
     const { authorization } = req.headers
     if (!authorization) {
-        return res.status(401).json({ message: 'Token is required' })
+        return res.status(401).json({ message: 'Token é obrigatório' })
     }
 
     const decodeToken = decode(authorization.split(' ')[1])
 
     if (!decodeToken) {
-        return res.status(401).json({ message: 'Invalid token' })
+        return res.status(401).json({ message: 'Token invalido' })
     }
 
     req.user = decodeToken

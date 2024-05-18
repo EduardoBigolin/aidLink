@@ -5,34 +5,31 @@ import { UserModel } from "../model/User";
 
 function validCreateUser(data: UserModel) {
     if (!data.name) {
-        return 'Name is required'
+        return 'Nome é obrigatório'
     }
     if (!data.email) {
-        return 'Email is required'
+        return 'Email é obrigatório'
     }
     if (!data.password) {
-        return 'Password is required'
+        return 'Senha é obrigatória'
     }
     if (data.password.length < 6) {
-        return 'Password must be at least 6 characters'
+        return 'Senha deve ter no mínimo 6 caracteres'
     }
     if (!data.email.includes('@')) {
-        return 'Invalid email'
+        return 'Email inválido'
     }
     if (data.name.length < 3) {
-        return 'Name must be at least 3 characters'
+        return 'Nome deve ter no mínimo 3 caracteres'
     }
     if (data.name.length > 255) {
-        return 'Name must be less than 255 characters'
+        return 'Nome deve ter menos de 255 caracteres'
     }
     if (data.email.length > 255) {
-        return 'Email must be less than 255 characters'
-    }
-    if (data.password.length > 255) {
-        return 'Password must be less than 255 characters'
+        return 'Email deve ter menos de 255 caracteres'
     }
     if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(data.email)) {
-        return 'Invalid email'
+        return 'Email inválido'
     }
 
     return null
@@ -61,7 +58,7 @@ async function createUserService(data: UserModel): Promise<HttpResponse> {
         return {
             statusCode: 400,
             body: {
-                message: 'User already exists'
+                message: 'Usuario já existe'
             }
         }
     }
@@ -79,20 +76,20 @@ async function createUserService(data: UserModel): Promise<HttpResponse> {
     return {
         statusCode: 201,
         body: {
-            message: 'User created successfully'
+            message: 'Usuário criado com sucesso'
         }
     }
 }
 
 function validUpdateUser(name: string) {
     if (!name) {
-        return 'Name is required'
+        return 'Nome é obrigatório'
     }
     if (name.length < 3) {
-        return 'Name must be at least 3 characters'
+        return 'Nome precisa ter no mínimo 3 caracteres'
     }
     if (name.length > 255) {
-        return 'Name must be less than 255 characters'
+        return 'Nome precisa ter menos de 255 caracteres'
     }
 
     return null
@@ -121,7 +118,7 @@ async function updateUserService(name: string, id: string): Promise<HttpResponse
         return {
             statusCode: 400,
             body: {
-                message: 'User not found'
+                message: 'Usuário não encontrado'
             }
         }
     }
@@ -138,12 +135,12 @@ async function updateUserService(name: string, id: string): Promise<HttpResponse
     return {
         statusCode: 200,
         body: {
-            message: 'User updated successfully'
+            message: 'Usuário atualizado com sucesso'
         }
     }
 }
 
-async function deleteUserService(id:string) {
+async function deleteUserService(id: string) {
     const userExists = await ClientPrisma.user.findUnique({
         where: {
             id: id
@@ -154,7 +151,7 @@ async function deleteUserService(id:string) {
         return {
             statusCode: 400,
             body: {
-                message: 'User not found'
+                message: 'Usuário não encontrado'
             }
         }
     }
@@ -168,12 +165,12 @@ async function deleteUserService(id:string) {
     return {
         statusCode: 200,
         body: {
-            message: 'User deleted successfully'
+            message: 'Usuário deletado com sucesso'
         }
     }
 }
 
-async function getUserService(id:string) {
+async function getUserService(id: string) {
     const userExists = await ClientPrisma.user.findUnique({
         where: {
             id: id
@@ -184,7 +181,7 @@ async function getUserService(id:string) {
         return {
             statusCode: 400,
             body: {
-                message: 'User not found'
+                message: 'Usuário não encontrado'
             }
         }
     }

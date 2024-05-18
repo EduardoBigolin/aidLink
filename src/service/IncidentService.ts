@@ -5,28 +5,28 @@ import { IncidentModel } from "../model/Incident";
 
 const validIncident = (data: IncidentModel) => {
   if (!data.name) {
-    return "Name is required";
+    return "Nome obrigatório";
   }
   if (!data.address) {
-    return "Address is required";
+    return "Endereço obrigatório";
   }
   if (!data.city) {
-    return "City is required";
+    return "cidade obrigatória";
   }
   if (!data.state) {
-    return "State is required";
+    return "estado obrigatório";
   }
   if (!data.zip) {
-    return "Zip is required";
+    return "CEP obrigatório";
   }
   if (!data.description) {
-    return "Description is required";
+    return "Descrição obrigatória";
   }
   if (!data.lat) {
-    return "Latitude is required";
+    return "Latitude obrigatória";
   }
   if (!data.long) {
-    return "Longitude is required";
+    return "Longitude obrigatória";
   }
 
   // if (data.zip.toString().length === 8) {
