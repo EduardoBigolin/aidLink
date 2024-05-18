@@ -12,7 +12,8 @@
     "build": "tsup src",
     "start": "node dist/main.js",
     "ci": "npm install",
-    "migration:dev": "npx prisma migrate dev --name init"
+    "migration:dev": "npx prisma migrate dev --name init",
+    "seed": "ts-node prisma/seeders/seed.ts"
   },
   "keywords": [],
   "author": "",
