@@ -1,10 +1,11 @@
 import { ClientPrisma } from '../client'
+import { HttpResponse } from '../utils/httpRespose'
 
- await createSecurePoint(req, res){
-
+ async function createSecurePoint(req: , res){
+    return Httpresponse 
  }
 
 
 
 
- export createSecurePoint
+ export {createSecurePoint}
