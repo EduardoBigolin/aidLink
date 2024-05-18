@@ -11,7 +11,8 @@
     "prisma": "npx prisma",
     "build": "tsup src",
     "start": "node dist/main.js",
-    "ci": "npm install"
+    "ci": "npm install",
+    "migration:dev": "npx prisma migrate dev --name init"
   },
   "keywords": [],
   "author": "",
