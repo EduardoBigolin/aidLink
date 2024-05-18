@@ -50,5 +50,5 @@ export async function getIncidentByUser(req: Request, res: Response) {
 
   const result = await getByUserIncidentService(id);
 
-  res.status(result.statusCode).json(result.body);
+//  res.status(result.statusCode).json(result.body);
 }
