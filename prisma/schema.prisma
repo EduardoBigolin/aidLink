@@ -9,11 +9,16 @@ datasource db {
 
 model SecurePoint {
   id        BigInt @id @default(autoincrement())
+  nome      String
   city      String
   state     String
+  max_people Int
+  current_people Int
   street    String
   longitude String
   latitude  String
+  user_point  User @relation(fields: [user_id], references: [id])
+  user_id   String
   items     Json
 }
 
@@ -23,6 +28,7 @@ model User {
   name     String?
   password String
   role     Role    @default(USER)
+  securepoint SecurePoint[]
 }
 
 enum Role {
