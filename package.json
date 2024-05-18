@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
-    "dev": "ts-node src/main.ts",
+    "dev": "tsx src/main.ts",
     "prisma": "npx prisma",
-    "build": "tsc"
+    "build": "tsup src"
   },
   "keywords": [],
   "author": "",
@@ -15,9 +18,12 @@
     "@types/node": "^20.12.12",
     "prisma": "^5.14.0",
     "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
+    "tsx": "^4.10.4",
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "express": "^4.19.2",
     "nodemon": "^3.1.0"
   }
 }
