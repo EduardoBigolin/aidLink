@@ -1,0 +1,1 @@
+import { ClientPrisma } from '../client'

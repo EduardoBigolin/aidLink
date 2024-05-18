@@ -6,4 +6,9 @@ router.get("/", (req, res) => {
   res.json({ message: "Hello World !" });
 });
 
+// User
+// router.get("/user", );
+
+
+
 export default router;
