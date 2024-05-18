@@ -34,7 +34,13 @@ async function authService(auth: AuthModel): Promise<HttpResponse> {
     return {
         statusCode: 200,
         body: {
-            message: token
+            message: token,
+            data: {
+                id: userExist.id,
+                name: userExist.name,
+                email: userExist.email,
+                role: userExist.role
+            }
         }
     }
 
