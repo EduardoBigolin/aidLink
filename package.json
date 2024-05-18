@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "tsx src/main.ts",
     "prisma": "npx prisma",
-    "build": "tsup src"
+    "build": "tsup src",
+    "start": "node dist/main.js",
+    "ci": "npm install"
   },
   "keywords": [],
   "author": "",
