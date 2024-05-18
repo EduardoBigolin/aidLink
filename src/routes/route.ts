@@ -11,9 +11,9 @@ router.get("/", (req, res) => {
 
 // User
 router.post("/user", createUser);
-router.put("/user/:id", auth, updateUser);
-router.delete("/user/:id", auth, deleteUser);
-router.get("/user/:id", auth, getUser);
+router.put("/user", auth, updateUser);
+router.delete("/user", auth, deleteUser);
+router.get("/user", auth, getUser);
 
 // Auth
 router.post("/login", authController);

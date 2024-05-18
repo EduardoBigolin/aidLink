@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../model/User';
 import { createUserService, deleteUserService, getUserService, updateUserService } from '../service/UserService';
-import { verifyID } from './utils/verifyID';
 
 async function createUser(req: Request, res: Response) {
 
@@ -14,10 +13,9 @@ async function createUser(req: Request, res: Response) {
 }
 
 async function updateUser(req: Request, res: Response) {
-    const { id } = req.params
-    const validId = verifyID(id, req.user.id);
-    
-    if (!validId) {
+    const id = req.user.id
+
+    if (!id) {
         return res.status(401).json({ message: 'Unauthorized' })
     }
 
@@ -28,10 +26,9 @@ async function updateUser(req: Request, res: Response) {
 }
 
 async function deleteUser(req: Request, res: Response) {
-    const { id } = req.params
-    const validId = verifyID(id, req.user.id);
-    
-    if (!validId) {
+    const id = req.user.id
+
+    if (!id) {
         return res.status(401).json({ message: 'Unauthorized' })
     }
     const resutlt = await deleteUserService(id)
@@ -40,10 +37,9 @@ async function deleteUser(req: Request, res: Response) {
 }
 
 async function getUser(req: Request, res: Response) {
-    const { id } = req.params
-    const validId = verifyID(id, req.user.id);
-    
-    if (!validId) {
+    const id = req.user.id
+
+    if (!id) {
         return res.status(401).json({ message: 'Unauthorized' })
     }
     const resutlt = await getUserService(id)
@@ -51,4 +47,4 @@ async function getUser(req: Request, res: Response) {
     res.status(resutlt.statusCode).json(resutlt.body)
 }
 
-export { createUser, updateUser, deleteUser, getUser };
+export { createUser, deleteUser, getUser, updateUser };
