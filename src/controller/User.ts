@@ -1,6 +1,6 @@
-import { Request, Response } from 'express'
-import { createUserService, getUserByIdService } from '../service/UserService'
-import { UserModel } from '../model/User'
+import { Request, Response } from 'express';
+import { UserModel } from '../model/User';
+import { createUserService } from '../service/UserService';
 
 async function createUser(req: Request, res: Response) {
     
@@ -12,4 +12,4 @@ async function createUser(req: Request, res: Response) {
     res.status(resutlt.statusCode).json(resutlt.body)
 }
 
-export { createUser }
+export { createUser };
