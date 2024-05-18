@@ -7,6 +7,33 @@ const validIncident = (data: IncidentModel) => {
   if (!data.name) {
     return "Name is required";
   }
+  if (!data.address) {
+    return "Address is required";
+  }
+  if (!data.city) {
+    return "City is required";
+  }
+  if (!data.state) {
+    return "State is required";
+  }
+  if (!data.zip) {
+    return "Zip is required";
+  }
+  if (!data.description) {
+    return "Description is required";
+  }
+  if (!data.lat) {
+    return "Latitude is required";
+  }
+  if (!data.long) {
+    return "Longitude is required";
+  }
+
+  if (data.zip.toString().length === 8) {
+    return "Zip must have 5 characters";
+  }
+
+  return null;
 };
 
 export async function createIncidentService(
@@ -41,9 +68,9 @@ export async function createIncidentService(
   return {
     statusCode: 201,
     body: {
-        message: 'Incident created successfully'
+      message: 'Incident created successfully'
     }
-}
+  }
 
 
 }
