@@ -1,5 +1,6 @@
 import { Router } from "express";
-import {createSecurePoint} from "../controller/SecurePoint"
+import { createUser } from "../controller/User";
+import {createSecurePoint} from "../controller/SecurePoint" 
 
 const router = Router();
 
@@ -8,12 +9,12 @@ router.get("/", (req, res) => {
 });
 
 // User
-// router.get("/user", );
+router.post("/user", createUser);
 
 //SecurePoint
 //router.get(//secure_point, func)
 
-router.post("/secure_point", createSecurePoint)
+router.post("/secure_point",  createSecurePoint)
 
 
 export default router;``
