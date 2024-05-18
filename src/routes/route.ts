@@ -9,6 +9,8 @@ router.get("/", (req, res) => {
 // User
 // router.get("/user", );
 
+//SecurePoint
+//router.get(//secure_point, func)
 
 
-export default router;
+export default router;``
