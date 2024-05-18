@@ -7,12 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model SecurePoint {
+  id        BigInt @id @default(autoincrement())
+  city      String
+  state     String
+  street    String
+  longitude String
+  latitude  String
+  items     Json
+}
+
 model User {
-  id       String   @id @default(cuid())
-  email    String   @unique
+  id       String  @id @default(cuid())
+  email    String  @unique
   name     String?
   password String
-  role     Role     @default(USER)
+  role     Role    @default(USER)
 }
 
 enum Role {
