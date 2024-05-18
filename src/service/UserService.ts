@@ -127,7 +127,7 @@ async function updateUserService(name: string, id: string): Promise<HttpResponse
         }
     }
 
-    const user = await ClientPrisma.user.update({
+    await ClientPrisma.user.update({
         where: {
             id: id
         },
