@@ -7,6 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Shelter {
+  id          String   @id @default(cuid())
+  name        String
+  address     String
+  city        String
+  state       String
+  zip         String
+  phone       String
+  code_pix    String
+  website     String
+  description String
+  capacity    Int
+  current     Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
 
 model User {
   id       String  @id @default(cuid())
