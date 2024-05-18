@@ -37,7 +37,8 @@ const validIncident = (data: IncidentModel) => {
 };
 
 export async function createIncidentService(
-  data: IncidentModel, user_id:string
+  data: IncidentModel,
+  user_id: string
 ): Promise<HttpResponse> {
   const isValid = validIncident(data);
 
@@ -50,7 +51,6 @@ export async function createIncidentService(
     };
   }
 
-
   await ClientPrisma.incident.create({
     data: {
       name: data.name,
@@ -62,15 +62,40 @@ export async function createIncidentService(
       lat: data.lat,
       long: data.long,
       image: data.image,
-      user_id
+      user_id,
     },
   });
 
   return {
     statusCode: 201,
     body: {
-      message: 'Incident created successfully'
-    }
-  }
+      message: "Incident created successfully",
+    },
+  };
 }
 
+export async function getIncidentService(id: string) {
+  const incidentExists = await ClientPrisma.incident.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!incidentExists) {
+    return {
+      statusCode: 400,
+      body: {
+        message: "Incidente não encontrado.",
+      },
+    };
+  }
+
+  return {
+    statusCode: 200,
+    body: incidentExists,
+  };
+}
+
+export async function getByUserIncidentService(id: string){
+  console.log("deu");
+}
