@@ -22,9 +22,6 @@ async function createShelterService(shelterModel: ShelterModel, userId: string):
             current: shelterModel.current,
             user_id: userId
         },
-        include: {
-            user: true
-        }
     })
 
     const result: HttpResponse = {statusCode: 201, body: createdShelter}
