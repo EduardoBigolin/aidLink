@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "tsx --watch  src/main.ts",
     "prisma": "npx prisma",
-    "build": "tsup src",
+    "build": "npx prisma migrate deploy && tsup src && npx prisma generate",
     "start": "node dist/main.js",
     "ci": "npm install",
     "migration:dev": "npx prisma migrate dev --name init",
