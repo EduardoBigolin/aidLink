@@ -50,6 +50,18 @@ export async function createIncidentService(
       },
     };
   }
+  console.log( {
+    name: data.name,
+    address: data.address,
+    city: data.city,
+    state: data.state,
+    zip: data.zip,
+    description: data.description,
+    lat: data.lat,
+    long: data.long,
+    image: data.image,
+    user_id,
+  })
 
   await ClientPrisma.incident.create({
     data: {
