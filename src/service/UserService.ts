@@ -79,7 +79,7 @@ async function createUserService(data: UserModel): Promise<HttpResponse> {
     return {
         statusCode: 201,
         body: {
-            message: 'User created successfully'
+                message: 'User created successfully'
         }
     }
 }

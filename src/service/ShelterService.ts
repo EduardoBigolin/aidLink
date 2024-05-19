@@ -1,12 +1,62 @@
 import { ShelterModel } from "../model/Shelter";
 import { ClientPrisma } from "../client";
-async function createShelterService(shelterModel: ShelterModel, useId: string) {
-    console.log(shelterModel, useId);
-    await ClientPrisma.shelter.create({
+import {HttpResponse} from "../utils/httpRespose"
+async function createShelterService(shelterModel: ShelterModel, userId: string): Promise<HttpResponse>{
+    console.log(shelterModel, userId);
+    const createdShelter = await ClientPrisma.shelter.create({
         data: {
             name: shelterModel.name,
             address: shelterModel.address,
             city: shelterModel.city,
+            image: shelterModel.image,
+            long: shelterModel.long,
+            lat: shelterModel.lat,
+            state: shelterModel.state,
+            zip: shelterModel.zip,
+            phone: shelterModel.phone,
+            code_pix: shelterModel.code_pix,
+            website: shelterModel.website,
+            description: shelterModel.description,
+            item: shelterModel.item.map(e => JSON.stringify(e)),
+            capacity: shelterModel.capacity,
+            current: shelterModel.current,
+            user_id: userId
+        },
+        include: {
+            user: true
+        }
+    })
+
+    const result: HttpResponse = {statusCode: 201, body: createdShelter}
+
+    return result
+}
+
+async function updateShelterService(shelterModel: ShelterModel): Promise<HttpResponse> {
+    console.log(shelterModel.user_id);
+    
+    const firtsShelterFinded = await ClientPrisma.shelter.findFirst({
+        where: {
+            user_id: shelterModel.user_id
+        }
+    })
+
+    if(!firtsShelterFinded){
+        return {statusCode: 404, body: "This user does not have shelters created"}
+    }
+
+
+    const updatedUser = await ClientPrisma.shelter.update({
+        where: {
+            id: firtsShelterFinded.id
+        },
+        data: {
+            name: shelterModel.name,
+            address: shelterModel.address,
+            city: shelterModel.city,
+            image: shelterModel.image,
+            long: shelterModel.long,
+            lat: shelterModel.lat,
             state: shelterModel.state,
             zip: shelterModel.zip,
             phone: shelterModel.phone,
@@ -15,27 +65,55 @@ async function createShelterService(shelterModel: ShelterModel, useId: string) {
             description: shelterModel.description,
             capacity: shelterModel.capacity,
             current: shelterModel.current,
-            user: {
-                connect: {
-                    id: useId
-                }
-            }
         }
     })
 
+    const result: HttpResponse= {statusCode: 200, body: updatedUser}
+
+    return result
 }
 
-// function updateShelterService(shelterModel: ShelterModel): Promise<HttpResponse> {
-// }
+async function deleteShelterService(id: string): Promise<HttpResponse> {
+    const firtsShelterFinded = await ClientPrisma.shelter.findFirst({
+        where: {
+            user_id: id
+        }
+    })
 
-// function deleteShelterService(id): Promise<HttpResponse> {
-
-// }
-
-// function getShelterService(id): Promise<HttpResponse> {
-
-// }
+    if(!firtsShelterFinded){
+        return {statusCode: 404, body: "This user does not have shelters created"}
+    }
 
 
-export { createShelterService };
+    const deletedShelter = await ClientPrisma.shelter.delete({
+        where: {
+            id: firtsShelterFinded.id
+        }   
+    })
+
+    const result: HttpResponse= {statusCode: 200, body: deletedShelter}
+
+    return result
+}
+
+async function getShelterService(id: string): Promise<HttpResponse> {
+   
+    const listedShelters = await ClientPrisma.shelter.findMany({
+    where: {
+        user_id: id
+    } 
+   })
+
+   if(!listedShelters){
+    return {statusCode:  404, body: "Uswer shelters not found"}
+   }
+
+   const result: HttpResponse = {statusCode: 201, body: listedShelters}
+
+   return result
+   
+}
+
+
+export { createShelterService, updateShelterService, deleteShelterService};
 

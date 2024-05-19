@@ -13,6 +13,7 @@ model Shelter {
   address     String
   city        String
   state       String
+  image       String
   zip         String
   phone       String
   code_pix    String
@@ -20,8 +21,13 @@ model Shelter {
   description String
   capacity    Int
   current     Int
+  long        String
+  lat         String
+  user        User   @relation(fields: [user_id], references: [id])
+  user_id     String 
+  item        Json[]  
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())  
 }
 
 model User {
@@ -30,6 +36,8 @@ model User {
   name     String?
   password String
   role     Role    @default(USER)
+  shelter  Shelter[]
+
 }
 
 enum Role {
