@@ -23,7 +23,7 @@ model Shelter {
   current     Int
   long        String
   lat         String
-  // user        User   @relation(fields: [user_id], references: [id])
+  user        User   @relation(fields: [user_id], references: [id])
   user_id     String 
   item        Json[]  
   createdAt   DateTime @default(now())
@@ -35,7 +35,7 @@ model User {
   email    String     @unique
   name     String?
   password String
-  // shelters Shelter[]
+  shelters Shelter[]
   role     Role       @default(USER)
 }
 
