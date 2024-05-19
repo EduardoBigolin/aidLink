@@ -51,20 +51,8 @@ async function updateShelterService(shelterModel: ShelterModel): Promise<HttpRes
             id: firtsShelterFinded.id
         },
         data: {
-            name: shelterModel.name,
-            address: shelterModel.address,
-            city: shelterModel.city,
-            image: shelterModel.image,
-            long: shelterModel.long,
-            lat: shelterModel.lat,
-            state: shelterModel.state,
-            zip: shelterModel.zip,
-            phone: shelterModel.phone,
             code_pix: shelterModel.code_pix,
-            website: shelterModel.website,
-            description: shelterModel.description,
-            capacity: shelterModel.capacity,
-            current: shelterModel.current,
+            item: shelterModel.item.map(e => JSON.stringify(e)),
         }
     })
 
