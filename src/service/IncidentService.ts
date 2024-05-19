@@ -74,7 +74,7 @@ export async function createIncidentService(
   };
 }
 
-export async function getIncidentService(id: string) {
+export async function getIncidentService(id: string): Promise<HttpResponse> {
   const incidentExists = await ClientPrisma.incident.findUnique({
     where: {
       id,
@@ -96,6 +96,48 @@ export async function getIncidentService(id: string) {
   };
 }
 
-export async function getByUserIncidentService(id: string){
-  console.log("deu");
+export async function getByUserIncidentService(id: string): Promise<HttpResponse> {
+  const incidents = await ClientPrisma.incident.findMany({
+    where: {
+      user_id: id,
+    },
+  });
+  return {
+    statusCode: 200,
+    body: incidents,
+  };
+}
+
+export async function deleteIncidentService(id: string): Promise<HttpResponse> {
+  const incidentExists = await ClientPrisma.incident.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!incidentExists) {
+    return {
+      statusCode: 400,
+      body: {
+        message: "Incidente não encontrado",
+      },
+    };
+  }
+
+  await ClientPrisma.incident.delete({
+    where: {
+      id,
+    },
+  });
+
+  return {
+    statusCode: 200,
+    body: {
+      message: "Incidente deletado com sucesso",
+    },
+  };
+}
+
+export async function updateIncidentService(data: IncidentModel): Promise<HttpResponse>{
+
 }
