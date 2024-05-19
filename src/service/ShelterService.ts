@@ -96,7 +96,7 @@ async function deleteShelterService(id: string): Promise<HttpResponse> {
     return result
 }
 
-async function getShelterService(id: string): Promise<HttpResponse> {
+async function getUserShelterService(id: string): Promise<HttpResponse> {
    
     const listedShelters = await ClientPrisma.shelter.findMany({
     where: {
@@ -115,5 +115,5 @@ async function getShelterService(id: string): Promise<HttpResponse> {
 }
 
 
-export { createShelterService, updateShelterService, deleteShelterService};
+export { createShelterService, updateShelterService, deleteShelterService, getUserShelterService};
 
