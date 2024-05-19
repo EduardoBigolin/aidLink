@@ -60,7 +60,7 @@ export async function createIncidentService(
     lat: data.lat,
     long: data.long,
     image: data.image,
-    user_id,
+    user_id: user_id,
   })
 
   await ClientPrisma.incident.create({
@@ -74,7 +74,7 @@ export async function createIncidentService(
       lat: data.lat,
       long: data.long,
       image: data.image,
-      user_id,
+      user_id: user_id,
     },
   });
 
