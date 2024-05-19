@@ -40,31 +40,18 @@ export async function createIncidentService(
   data: IncidentModel,
   user_id: string
 ): Promise<HttpResponse> {
-  const isValid = validIncident(data);
+  try {
+    const isValid = validIncident(data);
 
-  if (isValid) {
-    return {
-      statusCode: 400,
-      body: {
-        message: isValid,
-      },
-    };
-  }
-  console.log( {
-    name: data.name,
-    address: data.address,
-    city: data.city,
-    state: data.state,
-    zip: data.zip,
-    description: data.description,
-    lat: data.lat,
-    long: data.long,
-    image: data.image,
-    user_id: user_id,
-  })
-
-  await ClientPrisma.incident.create({
-    data: {
+    if (isValid) {
+      return {
+        statusCode: 400,
+        body: {
+          message: isValid,
+        },
+      };
+    }
+    console.log({
       name: data.name,
       address: data.address,
       city: data.city,
@@ -75,15 +62,36 @@ export async function createIncidentService(
       long: data.long,
       image: data.image,
       user_id: user_id,
-    },
-  });
+    });
 
-  return {
-    statusCode: 201,
-    body: {
-      message: "Incident created successfully",
-    },
-  };
+    const oi = await ClientPrisma.incident.create({
+      data: {
+        name: data.name,
+        address: data.address,
+        city: data.city,
+        state: data.state,
+        zip: data.zip,
+        description: data.description,
+        lat: data.lat,
+        long: data.long,
+        image: data.image,
+        user_id: user_id,
+      },
+    });
+    console.log(oi);
+
+    return {
+      statusCode: 201,
+      body: {
+        message: "Incident created successfully",
+      },
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: "Server Errror" + error
+    }
+  }
 }
 
 export async function getIncidentService(id: string): Promise<HttpResponse> {
@@ -108,7 +116,9 @@ export async function getIncidentService(id: string): Promise<HttpResponse> {
   };
 }
 
-export async function getByUserIncidentService(id: string): Promise<HttpResponse> {
+export async function getByUserIncidentService(
+  id: string
+): Promise<HttpResponse> {
   const incidents = await ClientPrisma.incident.findMany({
     where: {
       user_id: id,
@@ -150,6 +160,6 @@ export async function deleteIncidentService(id: string): Promise<HttpResponse> {
   };
 }
 
-export async function updateIncidentService(data: IncidentModel): Promise<HttpResponse>{
-
-}
+export async function updateIncidentService(
+  data: IncidentModel
+): Promise<HttpResponse> {}
