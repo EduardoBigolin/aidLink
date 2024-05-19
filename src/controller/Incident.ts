@@ -5,7 +5,7 @@ import {
   getIncidentService,
   getByUserIncidentService,
   deleteIncidentService,
-  updateIncidentService
+  updateIncidentService,
 } from "../service/IncidentService";
 
 export async function createIncident(req: Request, res: Response) {
@@ -62,13 +62,36 @@ export async function deleteIncidents(req: Request, res: Response) {
   res.status(result.statusCode).json(result.body);
 }
 
-export async function updateIncidents(req: Request, res: Response){
+export async function updateIncidents(req: Request, res: Response) {
   const id = req.params.id;
-  
-  
-  
-  const { name } = req.body
-    const resutlt = await updateIncidentService(name, id)
 
-    res.status(resutlt.statusCode).json(resutlt.body)
+  const {
+    name,
+    address,
+    city,
+    state,
+    zip,
+    description,
+    lat,
+    long,
+    image,
+    user_id,
+  } = req.body;
+
+  const incidentModel = new IncidentModel(
+    name,
+    address,
+    city,
+    state,
+    zip,
+    description,
+    lat,
+    long,
+    image,
+    user_id
+  );
+
+  const result = await updateIncidentService(incidentModel, id);
+
+  res.status(result.statusCode).json(result.body);
 }
